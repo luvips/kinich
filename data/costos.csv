@@ -1,0 +1,7 @@
+concepto,valor,unidad,fuente,fecha_consulta
+estructura_por_panel,,MXN,,
+instalacion_por_panel,,MXN,,
+inversor_por_kW,,MXN/kW,,
+masa_estructura_por_panel,,kg,,
+presupuesto,,MXN,,
+q_max,,kg/m2,,
