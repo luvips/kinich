@@ -1,0 +1,23 @@
+# Reglas locales del repositorio
+REGLAS_REPO.md
+
+# Configuración local de herramientas
+.claude/
+
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+.pytest_cache/
+
+# Empaquetado
+build/
+dist/
+*.spec
+
+# Sistema operativo y editores
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
