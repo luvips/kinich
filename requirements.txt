@@ -1,0 +1,5 @@
+# Núcleo del modelo (paso 2). Versiones comprobadas con las pruebas de tests/.
+numpy>=2.0
+pandas>=2.2
+pvlib==0.16.1
+pytest>=8.0
