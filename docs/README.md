@@ -36,7 +36,7 @@ Marquen cada punto cuando esté revisado o resuelto.
 
 **Pendientes técnicos ya identificados**
 
-- [ ] Repetir con pvlib la comprobación preliminar del clima (instante a mitad de hora y cierre GHI ≈ DHI + DNI·sin α).
+- [x] Repetir con pvlib la comprobación preliminar del clima (hecho: `tests/test_clima.py`).
 - [ ] Conseguir el CSV horario original de NASA POWER y guardarlo en `data/` (necesario para la prueba de fidelidad del perfil de 288 horas).
 
 ## Siguiente paso

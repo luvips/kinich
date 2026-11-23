@@ -40,14 +40,14 @@ Definición completa del modelo que evalúa cada individuo. Este documento manda
 
 **Separación de componentes** (se usa GHI − DHI en lugar de la DNI del archivo; ver la justificación en la sección 3 del documento de herramientas):
 
-- Si α ≥ 5°: BHI = max(0, GHI − DHI), DHI_ef = DHI
+- Si α ≥ 5°: BHI = max(0, GHI − DHI), DHI_ef = min(DHI, GHI)
 - Si α < 5°: BHI = 0, DHI_ef = GHI (toda la irradiancia se trata como difusa)
 
 **Irradiancia sobre el panel *i*:**
 
 G_i = BHI · max(0, cos θ) / sin α · (1 − s_i) + DHI_ef · (1 + cos β)/2 + GHI · ρ · (1 − cos β)/2
 
-(con α < 5° el primer término vale 0 y no se divide).
+(con α < 5° el primer término vale 0 y no se divide). En todos los casos BHI + DHI_ef = GHI.
 
 ## 4. Sombras
 
