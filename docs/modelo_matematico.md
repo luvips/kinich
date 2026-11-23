@@ -29,7 +29,7 @@ Definición completa del modelo que evalúa cada individuo. Este documento manda
 2. Se rota la rejilla (γ − 180°) para que las filas queden perpendiculares a la orientación.
 3. Se llenan filas desde el borde frontal hacia atrás y, dentro de cada fila, de izquierda a derecha.
 4. Un panel se coloca solo si todas las celdas de su huella están disponibles: dentro del techo, fuera de obstáculos, fuera del margen y sin ocupar.
-5. Se detiene al colocar *N* paneles o al agotarse el espacio. **N_col** = paneles realmente colocados.
+5. Se detiene al colocar *N* paneles, al agotarse el espacio o cuando un panel más haría que C > B o q > q_max. **N_col** = paneles realmente colocados; energía, costo, inversor y carga se calculan con N_col.
 
 ## 3. Geometría solar e irradiancia
 
@@ -69,7 +69,7 @@ G_i = BHI · max(0, cos θ) / sin α · (1 − s_i) + DHI_ef · (1 + cos β)/2 +
 
 - Temperatura de celda: T_c = T_a + (NOCT − 20)/800 · G_i
 - Potencia DC del panel: P_i = P_stc · (G_i/1000) · [1 + μ(T_c − 25)]
-- Potencia nominal del inversor: P_inv = N · P_stc / R
+- Potencia nominal del inversor: P_inv = N_col · P_stc / R
 - Potencia AC: P_AC = min(η_inv · η_p · Σ_i P_i, P_inv)
 - Energía del mes *m*: E_m = días_m · Σ_h P_AC(m, h) / 1000 (kWh)
 
@@ -78,13 +78,13 @@ G_i = BHI · max(0, cos θ) / sin α · (1 − s_i) + DHI_ef · (1 + cos β)/2 +
 | Objetivo | Definición | Caso especial |
 |---|---|---|
 | **E** (maximizar) | Σ_m E_m (kWh/año) | — |
-| **C** (minimizar) | N · (c_panel + c_estructura + c_instalación) + c_inv · P_inv/1000 (MXN) | — |
+| **C** (minimizar) | N_col · (c_panel + c_estructura + c_instalación) + c_inv · P_inv/1000 (MXN) | — |
 | **S** (minimizar) | 100 · (E⁰ − E)/E⁰, donde E⁰ es la energía sin sombras (%) | Si E⁰ = 0 → S = 100 |
 | **V** (minimizar) | σ(E_m)/μ(E_m), coeficiente de variación mensual | Si μ = 0 → V = 1 |
 
 Se usa el coeficiente de variación y no la desviación estándar porque esta crece con el tamaño del sistema y quedaría correlacionada con *E*.
 
-Carga sobre el techo: q = N · (m_panel + m_estructura) / A_útil (kg/m²)
+Carga sobre el techo: q = N_col · (m_panel + m_estructura) / A_útil (kg/m²)
 
 ## 7. Normalización y aptitud
 
@@ -97,14 +97,10 @@ Carga sobre el techo: q = N · (m_panel + m_estructura) / A_útil (kg/m²)
 
 **Aptitud:**
 
-f = Ê^w₁ · (1 + Ĉ)^−w₂ · (1 + Ŝ)^−w₃ · (1 + V̂)^−w₄ · P
+f = Ê · 1/(1 + Ĉ) · 1/(1 + Ŝ) · 1/(1 + V̂)
 
-- Pesos w₁…w₄ = 1 por defecto, ajustables en la interfaz.
-- Penalización: P = 1 / (1 + 10 · (v₁ + v₂ + v₃))
-  - v₁ = (N − N_col) / N
-  - v₂ = max(0, C − B) / B
-  - v₃ = max(0, q − q_max) / q_max
-- **Sin división entre cero:** todos los denominadores son ≥ 1 o constantes positivas (B, q_max, E_ref); N ≥ 1; E⁰ = 0 y μ = 0 tienen caso definido.
+- Las restricciones no entran en la aptitud: las garantiza el decodificador (secciones 2 y 8), por lo que Ĉ ∈ [0, 1].
+- **Sin división entre cero:** todos los denominadores son ≥ 1 o constantes positivas (B, E_ref, A_útil), que se validan antes de ejecutar el AG; E⁰ = 0 y μ = 0 tienen caso definido.
 - Rango: f ∈ [0, 1].
 
 ## 8. Restricciones
@@ -115,9 +111,9 @@ X = {(N, β, γ, d, R) | N ∈ ℤ, 1 ≤ N ≤ N_teo; β ∈ [5°, 45°]; γ �
 
 - β ≥ 5° para que la lluvia limpie los paneles.
 
-**Conjunto factible** (se maneja con la penalización P):
+**Conjunto factible del acomodo decodificado** (lo garantiza el decodificador):
 
-F = {x ∈ X | N_col(x) = N, C(x) ≤ B, q(x) ≤ q_max}
+F = {x ∈ X | 0 ≤ N_col(x) ≤ N, C(x) ≤ B, q(x) ≤ q_max}
 
 **Geométricas** (las garantiza el decodificador):
 

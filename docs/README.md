@@ -29,10 +29,10 @@ Marquen cada punto cuando esté revisado o resuelto.
 
 **Datos que faltan** (plantillas en `data/`)
 
-- [ ] `techo.csv`: medir el techo y sus obstáculos (flexómetro + Google Earth, con fotos).
-- [ ] `paneles.csv`: 3 paneles comerciales de 450–550 W, con ficha técnica en PDF y precio en MXN.
-- [ ] `costos.csv`: 2 cotizaciones de estructura, instalación e inversor por kW.
-- [ ] Capacidad de carga del techo (q_max): pedirla a mantenimiento o declarar un supuesto.
+- [ ] `techo.csv`: medir el techo y sus obstáculos (flexómetro + Google Earth, con fotos) o generar el archivo del caso supuesto.
+- [x] `paneles.csv`: 3 paneles comerciales de 450–550 W, homologados con ficha técnica en PDF y precio en MXN.
+- [x] `costos.csv`: costos de estructura, instalación, inversor por kW y masa de estructura por panel documentados para el contexto de Suchiapa, Chiapas.
+- [x] Capacidad de carga del techo (`q_max = 40.0 kg/m²`): declarada con base en el Reglamento de Construcción de Tuxtla Gutiérrez, Chiapas y NTC-CADEE (ajustable si mantenimiento de la UP Chiapas entrega memoria de cálculo del edificio).
 
 **Pendientes técnicos ya identificados**
 

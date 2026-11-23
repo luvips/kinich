@@ -9,15 +9,17 @@ La Universidad Politécnica de Chiapas se ubica en Suchiapa, en la zona metropol
 
 Los techos de los edificios del campus son espacios que podrían aprovecharse para instalar paneles solares y reducir el consumo de energía de la red. Sin embargo, tienen dimensiones limitadas y obstáculos como tinacos, domos, ductos y pretiles, que proyectan sombra y reducen el área útil.
 
+En esta situación están involucrados la administración de la universidad, que paga la energía y decide la inversión; el personal de mantenimiento, responsable de los techos; los estudiantes y trabajadores, que utilizan los edificios; y los instaladores, que diseñan los sistemas fotovoltaicos.
+
 Diseñar una instalación implica decidir cuántos paneles colocar, con qué inclinación y orientación, a qué distancia entre filas y con qué capacidad de inversor. Cada decisión afecta la energía generada, el costo y la sombra que los propios paneles se proyectan entre sí. Normalmente estas decisiones se toman con reglas generales del instalador, sin evaluar las combinaciones posibles.
 
 ## PROBLEMÁTICA
 
-Una instalación fotovoltaica mal planeada en los techos de la universidad:
+Una instalación fotovoltaica mal planeada en los techos de la universidad, con un número de paneles, inclinación, orientación, separación entre filas o capacidad de inversor inadecuados:
 
 - genera menos energía de la esperada, por sombras y ángulos inadecuados;
 - eleva el costo, porque se compran paneles o inversores que no se aprovechan;
-- produce de forma muy irregular a lo largo del año: cae en invierno por la menor altura del sol y en la temporada de lluvias por la nubosidad.
+- produce de forma más irregular a lo largo del año, en una región donde la generación ya disminuye en invierno, por la menor altura del sol, y al final de la temporada de lluvias, en septiembre y octubre, por la nubosidad.
 
 Esto se traduce en una inversión desaprovechada y un menor ahorro en el consumo eléctrico de la universidad.
 
@@ -34,12 +36,14 @@ K'inich
 El proyecto consiste en el desarrollo de un sistema basado en algoritmos genéticos. Toma en cuenta las características del techo, el clima del campus de la UP Chiapas en Suchiapa y la información técnica y económica de los paneles para encontrar la configuración de la instalación fotovoltaica que maximice la energía generada y minimice el costo, las pérdidas por sombra y la variación de la producción entre meses.
 
 - **Estructura del individuo:** un vector real [N, β, γ, d, R].
-- **Decodificación:** el vector se convierte en el acomodo de los paneles sobre una rejilla que representa al techo. Ahí se calculan las sombras de los obstáculos y las de una fila de paneles sobre la siguiente.
-- **Aptitud:** el producto de los objetivos normalizados. Las minimizaciones entran como inversos con +1 en el denominador, para evitar la división entre cero, y se multiplica por un factor de penalización si se viola alguna restricción:
+- **Decodificación:** el vector se convierte en el acomodo de los paneles sobre una rejilla que representa al techo. Solo se colocan paneles mientras quepan sin traslaparse, fuera de obstáculos y márgenes, y sin rebasar el presupuesto ni la carga máxima del techo. Sobre ese acomodo se calculan las sombras de los obstáculos y las de una fila de paneles sobre la siguiente.
+- **Aptitud:** el producto de los objetivos normalizados entre 0 y 1. Las minimizaciones entran como inversos con +1 en el denominador, para evitar la división entre cero:
 
-  f = Ê · 1/(1+Ĉ) · 1/(1+Ŝ) · 1/(1+V̂) · P
+  f = Ê · 1/(1+Ĉ) · 1/(1+Ŝ) · 1/(1+V̂)
 
-El sistema es una aplicación de escritorio. Incluye un editor 2D del techo, visualización 3D de los resultados y catálogos editables de climas, paneles y costos.
+  donde Ê = mín(1, E/E_ref), con E_ref como la energía teórica del techo lleno; Ĉ = C/B, con B como el presupuesto; Ŝ = S/100; y V̂ = mín(1, V). Se exige E_ref > 0 y B > 0.
+
+El sistema es una aplicación de escritorio. Incluye un editor 2D del techo, visualización 3D de los resultados y catálogos de climas, paneles y costos que se editan antes de ejecutar el algoritmo y permanecen fijos durante la optimización.
 
 ## VARIABLES DE DECISIÓN
 
@@ -83,7 +87,6 @@ El sistema es una aplicación de escritorio. Incluye un editor 2D del techo, vis
 - Modelo de panel seleccionado del catálogo.
 - Costos unitarios y presupuesto máximo (MXN).
 - Capacidad de carga máxima del techo (kg/m²).
-- Pesos de los objetivos en la aptitud.
 - Parámetros del algoritmo genético:
   - tamaño de la población
   - número de generaciones

@@ -73,7 +73,7 @@
 - **Techo:** editor 2D con dimensiones, obstáculos y rejilla; visualización 3D sincronizada.
 - **Climas:** gestionar perfiles, CSV y descarga opcional de NASA POWER.
 - **Paneles y costos:** catálogos editables, presupuesto y selección del panel antes del AG.
-- **Optimizar:** límites, pesos, semilla y operadores; ejecutar, pausar, cancelar y ver convergencia.
+- **Optimizar:** límites, semilla y operadores; ejecutar, pausar, cancelar y ver convergencia.
 - **Resultados:** tres mejores diseños distintos, comparación de costos y energía, sombras por mes/hora, exportaciones y video.
 
 ## 5. Validación y despliegue

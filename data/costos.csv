@@ -1,7 +1,7 @@
 concepto,valor,unidad,fuente,fecha_consulta
-estructura_por_panel,,MXN,,
-instalacion_por_panel,,MXN,,
-inversor_por_kW,,MXN/kW,,
-masa_estructura_por_panel,,kg,,
-presupuesto,,MXN,,
-q_max,,kg/m2,,
+estructura_por_panel,802.50,MXN,calculado con precios de tienda (ver data/README.md): https://enertik.com/mx/categoria/fotovoltaica/sistemas-de-montaje-para-paneles-solares/con-riel-para-superficies-planas/,2026-11-21
+instalacion_por_panel,3150,MXN,supuesto derivado de rangos publicados (ver data/README.md): https://psenergia.com.mx/blog/cuanto-cuesta-paneles-solares-empresa-mexico,2026-11-21
+inversor_por_kW,2074.80,MXN/kW,precio de tienda (agotado): https://enertik.com/mx/tienda/fotovoltaica/inversores-con-conexion-a-red/sin-backup/inversor-con-conexion-a-red-growatt-trifasico-127220v-serie-mid-tl3-x2-25kw/,2026-11-21
+masa_estructura_por_panel,5.5,kg,calculado para estructura anclada de aluminio 6005-T5/T6 (rieles + fijaciones + herrajes inox sin lastre; ver data/README.md): https://enertik.com/mx/categoria/fotovoltaica/sistemas-de-montaje-para-paneles-solares/con-riel-para-superficies-planas/,2026-11-22
+presupuesto,700000,MXN,supuesto para el caso de prueba,2026-11-21
+q_max,40.0,kg/m2,limite admisible permanente derivado del Reglamento de Construccion de Tuxtla Gutierrez y NTC-CADEE para azotea plana (Wm=100 y Wa=70 kg/m2 en zona sismica; ver data/README.md),2026-11-22
